@@ -1,0 +1,15 @@
+{
+  "name": "@neobutter/csharp-dto-to-typescript",
+  "version": "1.0.0",
+  "description": "Convert c# DTO class to typescript files",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "neobutter",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
