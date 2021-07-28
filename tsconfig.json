@@ -12,9 +12,8 @@
         "declaration": false,
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "importHelpers": true,
-        "target": "es2017",
-        "module": "es2020",
+        "target": "es6",
+        "module": "CommonJS",
         "lib": [
             "es2018",
             "DOM"

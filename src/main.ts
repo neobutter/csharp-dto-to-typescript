@@ -1,49 +1,35 @@
-import { CSharpFile, CSharpNamespace, EmitOptions, Emitter, EnumEmitOptions, FileEmitOptions, NamespaceEmitOptions } from "@fluffy-spoon/csharp-to-typescript-generator";
-import { DefaultEmitOptions } from "@fluffy-spoon/csharp-to-typescript-generator/dist/src/Emitter";
 import { readFileSync, mkdirSync, existsSync, writeFileSync} from "fs";
+import { glob } from "glob";
+import { Target } from "./model";
+import { Converter } from "./converter";
 import path from "path";
-import glob from "glob";
-import process from "process";
 
-class App {
-    constructor() {
-        process.chdir('/Users/Stephen/Development/proof-of-concept/PSIX.DTO');
+function bootstrap() {
+    const workingDirectory = '/Users/Stephen/Development/proof-of-concept/PSIX.DTO';
+    const outputDirectory = './converted';
+    process.chdir(workingDirectory);
+    const filePathList = glob.sync(`${workingDirectory}/**/*.cs`);
 
-        const fileList = this.getAllFilePath(process.cwd());
+    if (!existsSync(outputDirectory)) {
+        mkdirSync(outputDirectory);
+    }
 
-        if (!existsSync('./typescript')) {
-            mkdirSync('./typescript');
-        }
+    let targetFiles: Target[] = [];
 
-        fileList.forEach(element => {
-            const file = readFileSync(element).toString();
-            // console.log(this.parse(file));
-            const filenameWitoutExtention = path.basename(path.basename(element), path.extname(element));
-            writeFileSync(`${process.cwd()}/typescript/${filenameWitoutExtention}.ts`, this.convert(file));
+    filePathList.forEach(filePath => {
+        // const content = readFileSync(filePath).toString();
+        // const filenameWithoutExtension = path.basename(path.basename(content), path.extname(content));
+
+        targetFiles.push({
+            filename: path.relative(workingDirectory, filePath),
+            source: readFileSync(filePath).toString()
         });
-    }
+    });
 
-    private getAllFilePath(workingDir: string) {
-        return glob.sync(`${workingDir}/**/*.cs`);
-    }
-
-    private convert(code: string): string {
-        let emitter = new Emitter(code);
-        const options = <EmitOptions>{
-            defaults: <DefaultEmitOptions>{
-                namespaceEmitOptions: <NamespaceEmitOptions>{
-                    skip: true
-                }
-            },
-            file: <FileEmitOptions>{
-                onAfterParse: (file: CSharpFile) => {
-                    console.log(file);
-                }
-            }
-        };
-
-        return emitter.emit(options);
-    }
+    const converter = new Converter(targetFiles);
+    converter.convert();
 }
 
-export default new App();
+bootstrap();
+
+exports.module = bootstrap;

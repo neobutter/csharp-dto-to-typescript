@@ -2,8 +2,8 @@
   "name": "@neobutter/csharp-dto-to-typescript",
   "version": "1.0.0",
   "description": "Convert c# DTO class to typescript files",
-  "type": "module",
-  "main": "index.js",
+  "type": "commonjs",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +17,7 @@
   "devDependencies": {
     "@types/glob": "^7.1.4",
     "@types/node": "^16.4.3",
+    "ts-node": "^10.1.0",
     "typescript": "^4.3.5"
   },
   "engines": {
