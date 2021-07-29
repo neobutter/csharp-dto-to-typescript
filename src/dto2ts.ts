@@ -55,7 +55,7 @@ function bootstrap(inputPath: string, options: Options) {
 
         // 파일 Writing
         fs.mkdirSync(path.dirname(target.outputFilePath), { recursive: true });
-        fs.writeFileSync(target.outputFilePath, target.contents);
+        fs.writeFileSync(target.outputFilePath, target.contents + '\n');
     })
 
     console.log(`Total ${chalk.yellow(convertTargetFiles.length)} files are created!`);
