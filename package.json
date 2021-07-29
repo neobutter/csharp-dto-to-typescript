@@ -2,6 +2,10 @@
   "name": "@neobutter/csharp-dto-to-typescript",
   "version": "1.0.0",
   "description": "Convert c# DTO class to typescript files",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/neobutter/csharp-dto-to-typescript"
+  },
   "type": "commonjs",
   "main": "./dist/index.js",
   "scripts": {
@@ -12,6 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "@fluffy-spoon/csharp-to-typescript-generator": "^1.233.0",
+    "chalk": "^4.1.1",
+    "change-case": "^4.1.2",
+    "commander": "^8.1.0",
     "glob": "^7.1.7"
   },
   "devDependencies": {
