@@ -3,21 +3,13 @@
     "compileOnSave": false,
     "compilerOptions": {
         "baseUrl": "./",
-        "outDir": "./dist",
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
+        "outDir": "dist",
+        "resolveJsonModule": true,
         "sourceMap": true,
-        "declaration": false,
+        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "moduleResolution": "node",
-        "target": "es6",
-        "module": "CommonJS",
-        "lib": [
-            "es2018",
-            "DOM"
-        ],
+        "target": "es2017",
+        "module": "commonjs",
         "paths": {
             "*": ["node_modules/*", "src/types/*"]
         }
