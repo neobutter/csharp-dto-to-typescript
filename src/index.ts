@@ -1,7 +1,4 @@
-import { Options } from "./models";
-
-const packageJson = require('../package.json');
-
+import pkg from '../package.json';
 import fs from "fs";
 import path from "path";
 import glob from "glob";
@@ -9,22 +6,17 @@ import chalk from "chalk";
 import { Command } from "commander";
 import { paramCase } from "change-case";
 import { ConvertTargetFile } from "./convertTargetFile";
-
-const program = new Command();
-program.version(packageJson.version);
+import { Options } from "./models";
 
 function start() {
-    program
+    new Command()
+        .version(pkg.version)
         .argument('<path>', 'Working directory')
-        // .requiredOption('-i, --input-path <path>', 'Input path')
         .option('-o, --output-path <path>', 'Output path', 'Converted')
         .option('-l, --lower-case-filename', 'Set output path(filename) to lower case', true)
         .action((path, options) => {
-            console.log(options);
             bootstrap(path, options);
-        });
-
-    program.parse(process.argv);
+        }).parse(process.argv);
 }
 
 function bootstrap(inputPath: string, options: Options) {
@@ -59,11 +51,6 @@ function bootstrap(inputPath: string, options: Options) {
     })
 
     console.log(`Total ${chalk.yellow(convertTargetFiles.length)} files are created!`);
-}
-
-function getParamCasePath(pathString: string) {
-    const pathObject = path.parse(pathString);
-    return path.join(pathObject.dir.split(path.sep).map(item => paramCase(item)).join(path.sep), paramCase(pathObject.name) + pathObject.ext);
 }
 
 function getOutputFilePath(value: string, workingDirectory: string, outputDirectory: string, useParamCase: boolean = true) {

@@ -15,7 +15,7 @@ import { DefaultEmitOptions } from "@fluffy-spoon/csharp-to-typescript-generator
 export class ConvertTargetFile {
     private _isParsed: boolean = false;
     private readonly _path: string = '';
-    private _outputFilePath: string = '';
+    private readonly _outputFilePath: string = '';
     private _contents: string = '';
     private _classes: CSharpClass[] = [];
     private _enums: CSharpEnum[] = [];
@@ -124,7 +124,6 @@ export class ConvertTargetFile {
 
     public addImportStatement(importFilePath: string, types: string[]) {
         if (types.length) {
-            const temp = path.relative(this._outputFilePath, importFilePath);
             const importStatement = `import { ${ types.join(', ') } } from '${ path.join(path.relative(path.dirname(this._outputFilePath), path.dirname(importFilePath)), path.parse(importFilePath).name) }';\n`;
             this._contents = importStatement + this._contents;
         }
